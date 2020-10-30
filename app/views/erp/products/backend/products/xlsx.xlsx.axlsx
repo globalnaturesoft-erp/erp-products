@@ -31,6 +31,9 @@ wb.styles do |s|
       footer = {columns: [], styles: []}
       #header[:columns] = []
       
+      header[:columns] << "Tên sản phẩm"
+      header[:styles] << (s.add_style bg_info.deep_merge(text_left).deep_merge(bold))
+      
       header[:columns] << "Mã hàng"
       header[:styles] << (s.add_style bg_info.deep_merge(text_left).deep_merge(bold))
       
@@ -59,6 +62,9 @@ wb.styles do |s|
       @products.where(category_id: cat.id).each do |product|
         row = {columns: [], styles: []}
         row[:columns] = []
+        
+        row[:columns] << product.name
+        row[:styles] << (s.add_style border)
         
         row[:columns] << product.code
         row[:styles] << (s.add_style border)
@@ -103,7 +109,10 @@ wb.styles do |s|
       footer[:columns] << ''
       footer[:styles] << (s.add_style border)
       
-      footer[:columns] << "=SUM(F5:F#{c})"
+      footer[:columns] << ''
+      footer[:styles] << (s.add_style border)
+      
+      footer[:columns] << "=SUM(G5:G#{c})"
       footer[:styles] << (s.add_style border.deep_merge(bold))
       
       footer[:columns] << ''
@@ -113,9 +122,9 @@ wb.styles do |s|
       t += 1
       
       # Setup
-      sheet.column_widths 15, 15, 15, 15, 15, 15, 15
-      sheet.merge_cells("A2:G2")
-      sheet.merge_cells("A#{t}:E#{t}")
+      sheet.column_widths 20, 15, 15, 15, 15, 15, 15, 15
+      sheet.merge_cells("A2:H2")
+      sheet.merge_cells("A#{t}:F#{t}")
     end
   end
 end
