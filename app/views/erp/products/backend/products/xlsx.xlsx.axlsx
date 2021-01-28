@@ -32,28 +32,43 @@ wb.styles do |s|
       #header[:columns] = []
       
       header[:columns] << "Tên sản phẩm"
-      header[:styles] << (s.add_style bg_info.deep_merge(text_left).deep_merge(bold))
+      header[:styles] << (s.add_style bg_info.deep_merge(text_center).deep_merge(bold))
       
       header[:columns] << "Mã hàng"
-      header[:styles] << (s.add_style bg_info.deep_merge(text_left).deep_merge(bold))
+      header[:styles] << (s.add_style bg_info.deep_merge(text_center).deep_merge(bold))
+      
+      header[:columns] << "Chữ"
+      header[:styles] << (s.add_style bg_info.deep_merge(text_center).deep_merge(bold))
+      
+      header[:columns] << "Số"
+      header[:styles] << (s.add_style bg_info.deep_merge(text_center).deep_merge(bold))
       
       header[:columns] << "Đường kính"
-      header[:styles] << (s.add_style bg_info.deep_merge(text_right).deep_merge(bold))
+      header[:styles] << (s.add_style bg_info.deep_merge(text_center).deep_merge(bold))
       
       header[:columns] << "Loại hàng"
-      header[:styles] << (s.add_style bg_info.deep_merge(text_right).deep_merge(bold))
+      header[:styles] << (s.add_style bg_info.deep_merge(text_center).deep_merge(bold))
+      
+      header[:columns] << "Độ"
+      header[:styles] << (s.add_style bg_info.deep_merge(text_center).deep_merge(bold))
+      
+      header[:columns] << "Độ K"
+      header[:styles] << (s.add_style bg_info.deep_merge(text_center).deep_merge(bold))
+      
+      header[:columns] << "Độ K2"
+      header[:styles] << (s.add_style bg_info.deep_merge(text_center).deep_merge(bold))
       
       header[:columns] << "Giá vốn"
-      header[:styles] << (s.add_style bg_info.deep_merge(text_right).deep_merge(bold))
+      header[:styles] << (s.add_style bg_info.deep_merge(text_center).deep_merge(bold))
       
       header[:columns] << "Giá bán"
-      header[:styles] << (s.add_style bg_info.deep_merge(text_right).deep_merge(bold))
+      header[:styles] << (s.add_style bg_info.deep_merge(text_center).deep_merge(bold))
       
       header[:columns] << "Tồn kho"
-      header[:styles] << (s.add_style bg_info.deep_merge(text_right).deep_merge(bold))
+      header[:styles] << (s.add_style bg_info.deep_merge(text_center).deep_merge(bold))
       
       header[:columns] << "Ghi chú"
-      header[:styles] << (s.add_style bg_info.deep_merge(text_right).deep_merge(bold))
+      header[:styles] << (s.add_style bg_info.deep_merge(text_center).deep_merge(bold))
 
       sheet.add_row header[:columns], style: header[:styles]
       t += 1
@@ -69,10 +84,25 @@ wb.styles do |s|
         row[:columns] << product.code
         row[:styles] << (s.add_style border)
       
+        row[:columns] << product.get_letter
+        row[:styles] << (s.add_style border)
+      
+        row[:columns] << product.get_number
+        row[:styles] << (s.add_style border)
+      
         row[:columns] << product.get_diameter
         row[:styles] << (s.add_style border)
       
         row[:columns] << product.category_name
+        row[:styles] << (s.add_style border)
+      
+        row[:columns] << product.get_degree
+        row[:styles] << (s.add_style border)
+      
+        row[:columns] << product.get_degree_k
+        row[:styles] << (s.add_style border)
+      
+        row[:columns] << product.get_degree_k2
         row[:styles] << (s.add_style border)
       
         row[:columns] << product.cost
@@ -112,7 +142,22 @@ wb.styles do |s|
       footer[:columns] << ''
       footer[:styles] << (s.add_style border)
       
-      footer[:columns] << "=SUM(G5:G#{c})"
+      footer[:columns] << ''
+      footer[:styles] << (s.add_style border)
+      
+      footer[:columns] << ''
+      footer[:styles] << (s.add_style border)
+      
+      footer[:columns] << ''
+      footer[:styles] << (s.add_style border)
+      
+      footer[:columns] << ''
+      footer[:styles] << (s.add_style border)
+      
+      footer[:columns] << ''
+      footer[:styles] << (s.add_style border)
+      
+      footer[:columns] << "=SUM(L5:L#{c})"
       footer[:styles] << (s.add_style border.deep_merge(bold))
       
       footer[:columns] << ''
@@ -122,9 +167,9 @@ wb.styles do |s|
       t += 1
       
       # Setup
-      sheet.column_widths 20, 15, 15, 15, 15, 15, 15, 15
-      sheet.merge_cells("A2:H2")
-      sheet.merge_cells("A#{t}:F#{t}")
+      sheet.column_widths 20, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15
+      sheet.merge_cells("A2:M2")
+      sheet.merge_cells("A#{t}:K#{t}")
     end
   end
 end
